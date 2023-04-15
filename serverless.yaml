@@ -1,4 +1,4 @@
-service: serverless-example
+service: serverless-nestjs-whitelabel
 
 plugins:
   - serverless-offline
