@@ -15,25 +15,28 @@ model User {
   email     String      @unique
   name      String?
   password  String
-  Role      Role?       @relation(fields: [roleId], references: [id])
-  roleId    String?
-  UserRoles UserRoles[]
+  userRoles UserRoles[]
   Post      Post[]
+
+  @@map("users")
 }
 
 model UserRoles {
-  id     String @id @default(cuid())
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
-  role   Role   @relation(fields: [roleId], references: [id])
+  role   Role   @relation(fields: [roleId], references: [id], onDelete: Cascade)
   roleId String
+
+  @@id([userId, roleId])
+  @@map("user_roles")
 }
 
 model Role {
-  id        String      @id @default(cuid())
-  name      String      @unique
-  users     User[]
-  UserRoles UserRoles[]
+  id    String      @id @default(cuid())
+  name  String      @unique
+  users UserRoles[]
+
+  @@map("roles")
 }
 
 model Post {
@@ -45,4 +48,6 @@ model Post {
   published Boolean  @default(false)
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
+
+  @@map("posts")
 }
