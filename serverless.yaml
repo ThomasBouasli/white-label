@@ -2,15 +2,23 @@ service: serverless-nestjs-whitelabel
 
 plugins:
   - serverless-offline
-  - serverless-plugin-optimize
+  - serverless-optimize-plugin
 
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs18.x
+
+package:
+  patterns:
+    - '!node_modules/.prisma/client/libquery_engine-*'
+    - 'node_modules/.prisma/client/libquery_engine-linux-arm64-*'
+    - 'node_modules/.prisma/client/libquery_engine-rhel-openssl-*'
+    - '!node_modules/prisma/libquery_engine-*'
+    - '!node_modules/@prisma/engines/**'
 
 functions:
   main:
-    handler: dist/serverless.handler
+    handler: dist/src/serverless.handler
     events:
       - http:
           method: ANY
@@ -18,3 +26,5 @@ functions:
       - http:
           method: ANY
           path: '{proxy+}'
+  db-migrate:
+    handler: dist/src/serverless.migrate.handler
