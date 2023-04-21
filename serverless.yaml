@@ -4,9 +4,12 @@ plugins:
   - serverless-offline
   - serverless-optimize-plugin
 
+useDotenv: true
+
 provider:
   name: aws
   runtime: nodejs18.x
+  region: sa-east-1
 
 package:
   patterns:
