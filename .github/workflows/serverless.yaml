@@ -25,20 +25,3 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  db-migrate:
-    needs: deploy
-    name: db-migrate
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x]
-    steps:
-      - name: Invoke foobarFunction Lambda
-        id: db-migrate
-        uses: gagoar/invoke-aws-lambda@master
-        with:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          FunctionName: serverless-nestjs-whitelabel-dev-db-migrate
-      - name: Store response payload to file
-        run: echo '${{ fromJSON(steps.foobar.outputs.response).Payload }}' > invocation-response.json
