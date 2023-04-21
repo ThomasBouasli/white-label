@@ -1,13 +1,16 @@
 import { Global, Module } from '@nestjs/common';
-import { AppService } from './app.service';
-import { AppController } from './app.controller';
-import { AuthModule } from '@/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { PrismaService } from './infra/database';
-import { CommonModule } from '@/common/common.module';
+
 import { AdminModule } from '@/admin/admin.module';
+import { AuthModule } from '@/auth/auth.module';
+import { CommonModule } from '@/common/common.module';
+
 import { AuthService } from '@/auth/auth.service';
+
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { PrismaService } from './infra/database';
 
 @Global()
 @Module({

@@ -1,7 +1,7 @@
-import { NestFactory } from '@nestjs/core';
-
 import serverlessExpress from '@vendia/serverless-express';
 import { Callback, Context, Handler } from 'aws-lambda';
+
+import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from '@/app/app.module';
 

@@ -1,9 +1,14 @@
-import { PrismaService } from '@/app/infra/database';
-import { AuthService } from '@/auth/auth.service';
-import { Roles } from '@/auth/decorator/roles.decorator';
-import { Role } from '@/auth/enum/role.enum';
-import { Injectable } from '@nestjs/common';
 import { hash } from 'bcrypt';
+
+import { Injectable } from '@nestjs/common';
+
+import { Roles } from '@/auth/decorator/roles.decorator';
+
+import { Role } from '@/auth/enum/role.enum';
+
+import { AuthService } from '@/auth/auth.service';
+
+import { PrismaService } from '@/app/infra/database';
 
 @Injectable()
 export class AdminService {

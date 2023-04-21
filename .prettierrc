@@ -1,4 +1,18 @@
 {
   "singleQuote": true,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "importOrderParserPlugins": ["typescript", "decorators-legacy"],
+  "importOrder": [
+    "<THIRD_PARTY_MODULES>",
+    "^@nestjs/(.*)$",
+    "^@/(.*)\\.module$",
+    "^@/(.*)\\.decorator$",
+    "^@/(.*)\\.dto$",
+    "^@/(.*)\\.enum$",
+    "^@/(.*)\\.service$",
+    "^@/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

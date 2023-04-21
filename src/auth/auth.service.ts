@@ -1,9 +1,12 @@
-import { PrismaService } from '@/app/infra/database';
+import { compare } from 'bcrypt';
+
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+
+import { PrismaService } from '@/app/infra/database';
+
 import { PayloadDTO } from './dto/payload.dto';
 import { UserWithRolesDTO } from './dto/user-with-roles';
-import { compare } from 'bcrypt';
 
 @Injectable()
 export class AuthService {
