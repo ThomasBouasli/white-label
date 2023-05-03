@@ -8,8 +8,6 @@ import { CommonModule } from '@/common/common.module';
 
 import { AuthService } from '@/auth/auth.service';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { PrismaService } from './infra/database';
 
 @Global()
@@ -24,8 +22,7 @@ import { PrismaService } from './infra/database';
     CommonModule,
     AdminModule,
   ],
-  controllers: [AppController],
-  providers: [AppService, PrismaService, AuthService],
+  providers: [PrismaService, AuthService],
   exports: [JwtModule, PrismaService, AuthService],
 })
 export class AppModule {}

@@ -1,4 +1,6 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Response } from 'express';
+
+import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 
 import { Auth } from '@/auth/decorator/auth.decorator';
 import { Public } from '@/auth/decorator/public.decorator';
@@ -14,8 +16,17 @@ export class CommonController {
 
   @Public()
   @Post('register')
-  async registerUser(@Body() body: { email: string; password: string }) {
-    return this.commonService.registerUser(body);
+  async registerUser(
+    @Res() response: Response,
+    @Body() body: { email: string; password: string },
+  ) {
+    const { user, access_token } = await this.commonService.registerUser(body);
+
+    response.cookie('auth', access_token, {
+      httpOnly: true,
+    });
+
+    return response.json({ user });
   }
 
   @Get('users')

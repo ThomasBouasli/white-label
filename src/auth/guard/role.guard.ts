@@ -3,7 +3,7 @@ import { Reflector } from '@nestjs/core';
 
 import { IS_PUBLIC_KEY } from '../decorator/public.decorator';
 import { ROLES_KEY } from '../decorator/roles.decorator';
-import { UserWithRolesDTO } from '../dto/user-with-roles';
+import { UserWithRolesDTO } from '../dto/user-with-roles.dto';
 import { Role as RoleNames } from '../enum/role.enum';
 
 @Injectable()

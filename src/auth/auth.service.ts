@@ -6,7 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '@/app/infra/database';
 
 import { PayloadDTO } from './dto/payload.dto';
-import { UserWithRolesDTO } from './dto/user-with-roles';
+import { UserWithRolesDTO } from './dto/user-with-roles.dto';
 
 @Injectable()
 export class AuthService {
@@ -71,8 +71,11 @@ export class AuthService {
       roles: user.userRoles.map((userRole) => userRole.role.name),
     };
 
+    const accessToken = this.jwtService.sign(payload);
+
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: accessToken,
+      user,
     };
   }
 
