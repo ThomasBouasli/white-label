@@ -24,9 +24,11 @@ functions:
     handler: dist/src/serverless.handler
     events:
       - http:
+          cors: true
           method: ANY
           path: /
       - http:
+          cors: true
           method: ANY
           path: '{proxy+}'
   db-migrate:
