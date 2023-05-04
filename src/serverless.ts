@@ -1,5 +1,6 @@
 import serverlessExpress from '@vendia/serverless-express';
 import { Callback, Context, Handler } from 'aws-lambda';
+import cookieParser from 'cookie-parser';
 
 import { NestFactory } from '@nestjs/core';
 
@@ -10,6 +11,13 @@ let server: Handler;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   await app.init();
+
+  app.enableCors({
+    credentials: true,
+    origin: process.env.APP_URL,
+  });
+
+  app.use(cookieParser());
 
   const expressApp = app.getHttpAdapter().getInstance();
   return serverlessExpress({ app: expressApp });
