@@ -2,11 +2,11 @@ import { hash } from 'bcrypt';
 
 import { Injectable } from '@nestjs/common';
 
-import { Roles } from '@/auth/decorator/roles.decorator';
+import { Roles } from '@/modules/auth/decorator/roles.decorator';
 
-import { Role } from '@/auth/enum/role.enum';
+import { Role } from '@/modules/auth/enum/role.enum';
 
-import { AuthService } from '@/auth/auth.service';
+import { AuthService } from '@/modules/auth/auth.service';
 
 import { PrismaService } from '@/app/infra/database';
 

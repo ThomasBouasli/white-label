@@ -1,6 +1,7 @@
 import { Response } from 'express';
 
 import { Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import { AuthService } from './auth.service';
 import { Auth } from './decorator/auth.decorator';
@@ -9,6 +10,7 @@ import { ReqUser } from './decorator/user.decorator';
 import { UserWithRolesDTO } from './dto/user-with-roles.dto';
 import { LocalAuthGuard } from './guard/local.guard';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
