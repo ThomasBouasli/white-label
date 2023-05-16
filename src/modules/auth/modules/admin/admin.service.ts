@@ -10,6 +10,8 @@ import { AuthService } from '@/modules/auth/auth.service';
 
 import { PrismaService } from '@/app/infra/database';
 
+import { RegisterUserDTO } from '../../dto/register-user.dto';
+
 @Injectable()
 export class AdminService {
   constructor(
@@ -17,11 +19,12 @@ export class AdminService {
     private prisma: PrismaService,
   ) {}
 
-  async registerUser({ email, password }: { email: string; password: string }) {
+  async registerUser({ email, password, name }: RegisterUserDTO) {
     const hashedPassword = await hash(password, 10);
 
     const user = await this.prisma.user.create({
       data: {
+        name,
         email,
         password: hashedPassword,
         userRoles: {

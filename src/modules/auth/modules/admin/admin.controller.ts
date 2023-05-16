@@ -20,7 +20,7 @@ export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
   @Public()
-  @Post('register')
+  @Post()
   async registerUser(@Res() response: Response, @Body() body: RegisterUserDTO) {
     const { user, access_token } = await this.adminService.registerUser(body);
 
@@ -32,7 +32,7 @@ export class AdminController {
   }
 
   @Roles(Role.ADMIN)
-  @Get('users')
+  @Get('all')
   async getAllUsers() {
     return this.adminService.getAllUsers();
   }
