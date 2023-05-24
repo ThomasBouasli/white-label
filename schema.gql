@@ -1,0 +1,95 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Permission {
+  action: String!
+  resource: String!
+}
+
+type Post {
+  title: String!
+  content: String!
+  user: User
+}
+
+type User {
+  name: String!
+  email: String!
+  permission_groups: [PermissionGroup!]
+  permissions: [Permission!]
+  posts: [Post!]
+}
+
+type PermissionGroup {
+  name: String!
+  permissions: [Permission!]
+  users: [User!]
+}
+
+type AuthTokenDTO {
+  access_token: String!
+}
+
+type LoginDataDTO {
+  auth_token: AuthTokenDTO!
+  user: User!
+}
+
+type Query {
+  login(data: LoginDTO!): LoginDataDTO!
+  logout: String!
+  me: User!
+  permissions: [Permission!]!
+  permission(id: String!): Permission!
+  permissionGroups: [PermissionGroup!]!
+  permissionGroup(name: String!): PermissionGroup!
+}
+
+input LoginDTO {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  createPermission(data: CreatePermissionDTO!): Permission!
+  deletePermission(id: String!): Boolean!
+  createPermissionGroup(data: CreatePermissionGroupDTO!): PermissionGroup!
+  deletePermissionGroup(id: String!): Boolean!
+  addPermissionsToGroup(data: AddPermissionsToGroupDTO!): Boolean!
+  removePermissionsToGroup(data: RemovePermissionsToGroupDTO!): Boolean!
+  registerUser(data: RegisterUserDTO!): User!
+  updateUser(data: UpdateUserDTO!): User!
+  deleteUser: Boolean!
+  me: User!
+}
+
+input CreatePermissionDTO {
+  action: String!
+  resource: String!
+}
+
+input CreatePermissionGroupDTO {
+  name: String!
+}
+
+input AddPermissionsToGroupDTO {
+  groupId: String!
+  permissionIds: [String!]!
+}
+
+input RemovePermissionsToGroupDTO {
+  groupId: String!
+  permissionIds: [String!]!
+}
+
+input RegisterUserDTO {
+  name: String!
+  email: String!
+  password: String!
+}
+
+input UpdateUserDTO {
+  name: String
+  email: String
+}

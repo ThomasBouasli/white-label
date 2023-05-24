@@ -1,16 +1,33 @@
-import { Module } from '@nestjs/common';
-import { PassportModule } from '@nestjs/passport';
+import { Global, Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-import { AdminModule } from './modules/admin/admin.module';
-import { CommonModule } from './modules/common/common.module';
-import { JwtStrategy } from './strategy/jwt.strategy';
-import { LocalStrategy } from './strategy/local.strategy';
+import { PermissionGroup } from '@/app/infra/database/entities/permission-group.entity';
+import { Permission } from '@/app/infra/database/entities/permission.entity';
 
+import { UserModule } from '../user/user.module';
+import { AuthResolver } from './resolvers/auth.resolver';
+import { PermissionGroupResolver } from './resolvers/permission-group.resolver';
+import { PermissionResolver } from './resolvers/permission.resolver';
+import { AuthService } from './services/auth.service';
+import { PermissionGroupService } from './services/permission-group.service';
+import { PermissionService } from './services/permission.service';
+import { JwtStrategy } from './strategies/jwt.strategy';
+
+@Global()
 @Module({
-  imports: [PassportModule, AdminModule, CommonModule],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
-  controllers: [AuthController],
+  imports: [
+    UserModule,
+    TypeOrmModule.forFeature([Permission, PermissionGroup]),
+  ],
+  providers: [
+    AuthService,
+    PermissionService,
+    PermissionGroupService,
+    AuthResolver,
+    PermissionResolver,
+    PermissionGroupResolver,
+    JwtStrategy,
+  ],
+  exports: [AuthService],
 })
 export class AuthModule {}

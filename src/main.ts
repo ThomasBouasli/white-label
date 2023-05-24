@@ -1,17 +1,21 @@
+import { useContainer } from 'class-validator';
 import cookieParser from 'cookie-parser';
 
-import { ValidationPipe } from '@nestjs/common';
+import { HttpStatus, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AppModule } from '@/app/app.module';
-
-import { version } from '../package.json';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+    }),
+  );
 
   app.enableCors({
     credentials: true,
@@ -20,13 +24,7 @@ async function bootstrap() {
 
   app.use(cookieParser());
 
-  const config = new DocumentBuilder()
-    .setTitle('WhiteLabel')
-    .setDescription('WhiteLabel API')
-    .setVersion(version)
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
   await app.listen(3333);
 }

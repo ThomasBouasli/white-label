@@ -1,24 +1,11 @@
-import { Global, Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { JwtModule } from '@nestjs/jwt';
+import { Module } from '@nestjs/common';
 
 import { AuthModule } from '@/modules/auth/auth.module';
+import { UserModule } from '@/modules/user/user.module';
 
-import { AuthService } from '@/modules/auth/auth.service';
+import { InfraModule } from './infra/infra.module';
 
-import { PrismaService } from './infra/database';
-
-@Global()
 @Module({
-  imports: [
-    ConfigModule.forRoot(),
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '1d' },
-    }),
-    AuthModule,
-  ],
-  providers: [PrismaService, AuthService],
-  exports: [JwtModule, PrismaService, AuthService],
+  imports: [AuthModule, UserModule, InfraModule],
 })
 export class AppModule {}

@@ -1,0 +1,10 @@
+entity: User
+items:
+  first:
+    name: '{{name.firstName}} {{name.lastName}}'
+    email: '{{internet.email}}'
+    password: { { internet.password } }
+  second:
+    name: '{{name.firstName}} {{name.lastName}}'
+    email: '{{internet.email}}'
+    password: { { internet.password } }
